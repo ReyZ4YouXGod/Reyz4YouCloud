@@ -41,6 +41,12 @@
         .banner-content { position: absolute; bottom: 20px; left: 20px; z-index: 3; }
         .banner-content h2 { font-size: 20px; font-weight: 800; }
 
+        /* --- FLOATING CONTACT --- */
+        .fab-container { position: fixed; right: 20px; bottom: 110px; display: flex; flex-direction: column; gap: 10px; z-index: 999; }
+        .fab { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); text-decoration: none; transition: 0.3s; }
+        .fab-wa { background: #25d366; }
+        .fab-tele { background: #0088cc; }
+
         /* --- SECTIONS --- */
         .section-title { font-size: 11px; font-weight: 800; color: var(--accent); margin-bottom: 15px; letter-spacing: 2px; text-transform: uppercase; border-left: 3px solid var(--primary); padding-left: 10px; }
         .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
@@ -75,9 +81,157 @@
     </style>
 </head>
 <body>
+    
+    <div class="fab-container">
+        <a href="https://wa.me/6281260512743" target="_blank" class="fab fab-wa"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://t.me/Reyz4YouXGod" target="_blank" class="fab fab-tele"><i class="fab fa-telegram-plane"></i></a>
+    </div>
 
     <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
+    <div class="sheet" id="sheet-faq">
+        <div class="sheet-handle"></div>
+        <h3 style="text-align: center; margin-bottom: 20px; color: var(--accent);">Bantuan & FAQ</h3>
+        <div class="info-card"><b>⏰ Berapa lama prosesnya?</b><p>Proses aktivasi memakan waktu 1-10 menit setelah pembayaran dikonfirmasi sistem.</p></div>
+        <div class="info-card"><b>🔄 Apakah bisa diperpanjang?</b><p>Bisa! Hubungi admin 3 hari sebelum masa aktif habis agar data tidak terhapus.</p></div>
+        <div class="info-card"><b>💳 Metode Pembayaran?</b><p>Gunakan QRIS untuk proses otomatis. Juga bisa lewat Dana/Gopay/SeaBank secara manual via Admin.</p></div>
+        <div class="info-card"><b>📞 Kontak Admin</b><p>Jika ada kendala pembayaran atau klaim garansi, silakan hubungi WA: 08xx atau Tele: @AdminReyz.</p></div>
+        <div class="info-card"><b>❌ Aturan Server?</b><p>Dilarang keras DDoS, Mining, dan Phising. Melanggar = Suspend tanpa Refund.</p></div>
+        <button onclick="closeAll()" style="width:100%; padding:15px; border-radius:15px; background:var(--primary); color:white; border:none; font-weight:800;">MENGERTI</button>
+    </div>
+
+    <div class="sheet" id="sheet-garansi">
+        <div class="sheet-handle"></div>
+        <h3 style="text-align: center; margin-bottom: 20px; color: var(--accent);">Detail Garansi ReyzCloud</h3>
+        <div class="info-card"><b>🛡️ PANEL PTERODACTYL</b><p>Garansi 30 hari Full. Ganti unit jika mokad akibat sistem.</p></div>
+        <div class="info-card"><b>⚡ VPS REGULER</b><p>Garansi 10 hari. Berlaku untuk kendala OS/Akses Awal.</p></div>
+        <div class="info-card"><b>💎 VPS VIP XEON</b><p>Garansi 30 hari Full. Resource High-End & Dedicated.</p></div>
+        <div style="background: rgba(250, 204, 21, 0.1); border: 1px dashed var(--accent); border-radius: 15px; padding: 12px; margin-top: 15px;">
+            <p style="font-size: 10.5px; color: #fff; text-align: center; font-weight: 600;">⚠️ Simpan Screenshot QRIS & Order ID, Lalu Kirim ke Admin via WA atau Telegram. Trims.</p>
+        </div>
+        <button onclick="closeAll()" style="width:100%; padding:15px; border-radius:15px; background:var(--primary); color:white; border:none; font-weight:800; margin-top:10px;">MENGERTI</button>
+    </div>
+
+    <div class="sheet" id="sheet-panel">
+        <div class="sheet-handle"></div>
+        <h3 style="text-align: center; margin-bottom: 20px;">List Panel Pterodactyl</h3>
+        <div id="panel-list-container"></div>
+        <div class="p-item">
+            <div class="p-name">Panel Unlimited<small>No Limit CPU/RAM | 30 Hari</small></div>
+            <div class="p-price">Rp 15.000</div>
+            <button class="btn-buy-mini" onclick="addToOrder('Panel Unlimited', 15000)">BUY</button>
+        </div>
+    </div>
+
+    <div class="sheet" id="sheet-vpsreg">
+        <div class="sheet-handle"></div>
+        <h3 style="text-align: center; margin-bottom: 20px;">List VPS Reguler</h3>
+        <div id="vps-reg-list"></div>
+    </div>
+
+    <div class="sheet" id="sheet-vpsvip">
+        <div class="sheet-handle"></div>
+        <h3 style="text-align: center; margin-bottom: 20px;">List VPS VIP XEON</h3>
+        <div class="p-item">
+            <div class="vip-label">Terbaik</div>
+            <div class="p-name">VIP R4C2<small>Dedicated Resource | Xeon Platinum</small></div>
+            <div class="p-price">Rp 65.000</div>
+            <button class="btn-buy-mini" onclick="addToOrder('VIP R4C2', 65000)">BUY</button>
+        </div>
+        <div class="p-item">
+            <div class="vip-label">Terbaik</div>
+            <div class="p-name">VIP R8C4<small>Extreme Performance | Xeon Platinum</small></div>
+            <div class="p-price">Rp 95.000</div>
+            <button class="btn-buy-mini" onclick="addToOrder('VIP R8C4', 95000)">BUY</button>
+        </div>
+        <div class="p-item">
+            <div class="vip-label">Terbaik</div>
+            <div class="p-name">VIP R16C4<small>Ultra High Resource | Xeon Platinum</small></div>
+            <div class="p-price">Rp 150.000</div>
+            <button class="btn-buy-mini" onclick="addToOrder('VIP R16C4', 150000)">BUY</button>
+        </div>
+    </div>
+
+    <div class="sheet" id="sheet-orders">
+        <div class="sheet-handle"></div>
+        <h3 style="text-align: center; margin-bottom: 20px;">Keranjang Saya</h3>
+        <div id="order-list-container"></div>
+    </div>
+
+    <div class="header-main">
+        <div class="logo-text">REYZ4YOU<span>CLOUD</span></div>
+        <div class="btn-warranty" onclick="toggleSheet('sheet-garansi')"><i class="fa-solid fa-shield-halved"></i></div>
+    </div>
+    <div class="status-bar">
+        <div class="dot"></div>
+        <div class="status-text">Update System Security V2.0</div>
+    </div>
+    <div class="neon-container">
+        <div class="banner-box">
+            <video class="banner-video" autoplay loop muted playsinline><source src="https://i.top4top.io/m_3655m84nb8.mp4"></video>
+            <div class="banner-content"><h2>Welcome Back</h2></div>
+        </div>
+    </div>
+    <p class="section-title">Akses Produk</p>
+    <div class="tools-grid">
+        <div class="tool-btn" onclick="toggleSheet('sheet-panel')"><i class="fa-solid fa-cubes"></i><span>Panel Ptero</span></div>
+        <div class="tool-btn" onclick="toggleSheet('sheet-vpsreg')"><i class="fa-solid fa-microchip"></i><span>VPS Reguler</span></div>
+        <div class="tool-btn" onclick="toggleSheet('sheet-vpsvip')"><i class="fa-solid fa-bolt"></i><span>VPS VIP</span></div>
+        <div class="tool-btn" onclick="toggleSheet('sheet-faq')"><i class="fa-solid fa-circle-question"></i><span>Info FAQ</span></div>
+    </div>
+    <nav class="navbar">
+        <a href="#" class="nav-item active" style="color: var(--primary);"><i class="fas fa-home"></i>Home</a>
+        <button class="nav-item" onclick="toggleSheet('sheet-orders')"><i class="fas fa-shopping-cart"></i>Orders</button>
+        <button class="nav-item" onclick="toggleSheet('sheet-faq')"><i class="fas fa-info-circle"></i>FAQ</button>
+    </nav>
+
+    <script>
+        function toggleSheet(id) { closeAll(); document.getElementById(id).classList.add('active'); document.getElementById('overlay').classList.add('active'); }
+        function closeAll() { document.querySelectorAll('.sheet').forEach(s => s.classList.remove('active')); document.getElementById('overlay').classList.remove('active'); }
+        
+        const panelCont = document.getElementById('panel-list-container');
+        for (let i = 1; i <= 10; i++) {
+            panelCont.innerHTML += `<div class="p-item"><div class="p-name">Panel ${i}GB<small>RAM ${i}GB | 30 Hari</small></div><div class="p-price">Rp ${i}.000</div><button class="btn-buy-mini" onclick="addToOrder('Panel ${i}GB', ${i*1000})">BUY</button></div>`;
+        }
+        
+        const vpsRegData = [
+            {n: 'VPS R2C2', p: 10000, d: '2GB RAM | 2 Core'},
+            {n: 'VPS R4C2', p: 15000, d: '4GB RAM | 2 Core'},
+            {n: 'VPS R8C4', p: 20000, d: '8GB RAM | 4 Core'},
+            {n: 'VPS R16C4', p: 25000, d: '16GB RAM | 4 Core'}
+        ];
+        document.getElementById('vps-reg-list').innerHTML = vpsRegData.map(v => `<div class="p-item"><div class="p-name">${v.n}<small>${v.d}</small></div><div class="p-price">Rp ${v.p.toLocaleString()}</div><button class="btn-buy-mini" onclick="addToOrder('${v.n}', ${v.p})">BUY</button></div>`).join('');
+        
+        function generateOrderID() {
+            return "ITEM" + Date.now().toString().slice(-6) + Math.floor(Math.random() * 100);
+        }
+        function addToOrder(name, price) {
+            let cart = JSON.parse(localStorage.getItem('reyz_cart')) || [];
+            let orderID = generateOrderID();
+            cart.push({name, price, orderID});
+            localStorage.setItem('reyz_cart', JSON.stringify(cart));
+            alert('Produk Masuk Keranjang!\nOrder ID: ' + orderID);
+            updateOrderList();
+        }
+        function updateOrderList() {
+            let cart = JSON.parse(localStorage.getItem('reyz_cart')) || [];
+            const cont = document.getElementById('order-list-container');
+            if(cart.length > 0) {
+                cont.innerHTML = cart.map(item => `
+                    <div class="p-item">
+                        <div class="p-name">${item.name}<span class="order-id-badge">Order ID: ${item.orderID}</span></div>
+                        <div class="p-price">Rp ${item.price.toLocaleString()}</div>
+                        <button class="btn-buy-mini" onclick="window.location.href='https://app.pakasir.com/pay/reyz4youcloud/${item.price}?order_id=${item.orderID}&qris_only=1'">PAY</button>
+                    </div>
+                `).join('') + `<button onclick="localStorage.removeItem('reyz_cart');updateOrderList()" style="width:100%; color:gray; background:none; border:none; margin-top:15px; font-size:11px;">Hapus Semua</button>`;
+            } else {
+                cont.innerHTML = `<p style="text-align:center; color:gray; font-size:12px;">Keranjang masih kosong.</p>`;
+            }
+        }
+        window.onload = updateOrderList;
+    </script>
+</body>
+</html>
     <div class="sheet" id="sheet-faq">
         <div class="sheet-handle"></div>
         <h3 style="text-align: center; margin-bottom: 20px; color: var(--accent);">Bantuan & FAQ</h3>
